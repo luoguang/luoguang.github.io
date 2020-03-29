@@ -6,7 +6,8 @@
     <content><![CDATA[<h1 id="添加“关于”标签"><a href="#添加“关于”标签" class="headerlink" title="添加“关于”标签"></a>添加“关于”标签</h1><p>由于我使用的是 next 主题，两步就够了：</p>
 <ol>
 <li>通过 hexo 引擎新建索引页：hexo new page “about”</li>
-<li>菜单显示 about 链接，在主题的 _configy.yml 设置中将 menu 中 about 前面的注释去掉即可。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F;</span><br><span class="line">  archives: &#x2F;archives</span><br><span class="line">  tags: &#x2F;tags</span><br><span class="line">  about: &#x2F;about</span><br></pre></td></tr></table></figure>
+<li>菜单显示 about 链接，在主题的 _configy.yml 设置中将 menu 中 about 前面的注释去掉即可。<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F;</span><br><span class="line">  archives: &#x2F;archives</span><br><span class="line">  tags: &#x2F;tags</span><br><span class="line">  about: &#x2F;about</span><br></pre></td></tr></table></figure>
 在首页添加其他标签页，照猫画虎就行。</li>
 </ol>
 <h1 id="博客文章搜索"><a href="#博客文章搜索" class="headerlink" title="博客文章搜索"></a>博客文章搜索</h1><p>首先安装 node 插件： hexo-generator-searchdb，在博客根目录执行：</p>
