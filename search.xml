@@ -264,7 +264,7 @@ fs<span class="token punctuation">.</span><span class="token function">writeFile
 </tr>
 <tr>
 <td>导入旧文档</td>
-<td><code>npm run convert -- &lt;文件或 zip&gt;</code></td>
+<td>文件放进 <code>tools/blog2md/txt</code> 或 <code>doc</code> 后 <code>npm run convert</code></td>
 </tr>
 </tbody></table>
 <h2 id="二、环境搭建（新机器）"><a href="#二、环境搭建（新机器）" class="headerlink" title="二、环境搭建（新机器）"></a>二、环境搭建（新机器）</h2><h3 id="2-1-前置软件"><a href="#2-1-前置软件" class="headerlink" title="2.1 前置软件"></a>2.1 前置软件</h3><table>
@@ -399,41 +399,53 @@ npm run build       <span class="token comment"># hexo generate，输出到 publ
 订阅与搜索索引     /atom.xml  /search.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>都能打开就说明发布成功。文章链接格式由 <code>permalink</code> 决定，本站是 <code>:year/:month/:day/:title/</code>。</p>
-<h2 id="五、小工具：doc2md-文档转换"><a href="#五、小工具：doc2md-文档转换" class="headerlink" title="五、小工具：doc2md 文档转换"></a>五、小工具：doc2md 文档转换</h2><p>手上有存量的 <code>txt</code> &#x2F; <code>doc</code> &#x2F; <code>docx</code> 笔记时，不用手工复制粘贴，用站点自带的转换工具直接生成 Markdown 与 front-matter。</p>
-<h3 id="5-1-最省事的方式：双击运行"><a href="#5-1-最省事的方式：双击运行" class="headerlink" title="5.1 最省事的方式：双击运行"></a>5.1 最省事的方式：双击运行</h3><p>Windows 双击 <code>tools\doc2md\运行工具.bat</code>（Linux &#x2F; macOS 执行 <code>run.sh</code>），工具会**优先使用 <code>dist\</code> 里打包好的 exe（免环境）**，否则自动识别运行环境——有 Node.js 且依赖已装就用 Node 版，否则用 Python 版。接着它自动扫描当前目录、桌面、下载、文档里的 <code>txt</code> &#x2F; <code>doc</code> &#x2F; <code>docx</code> &#x2F; <code>zip</code> 并列出候选，按序号选、填标签、先看预览、确认后写入，<strong>全程不用敲命令</strong>。</p>
-<p>想用命令行时，两套实现的参数完全一致：</p>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">cd tools/doc2md
+<h2 id="五、小工具：blog2md-文档转换"><a href="#五、小工具：blog2md-文档转换" class="headerlink" title="五、小工具：blog2md 文档转换"></a>五、小工具：blog2md 文档转换</h2><p>手上有存量的 <code>txt</code> &#x2F; <code>doc</code> &#x2F; <code>docx</code> 笔记时，不用手工复制粘贴，用站点自带的转换工具直接生成 Markdown 与 front-matter。</p>
+<h3 id="5-1-目录固定，文件放进去就转"><a href="#5-1-目录固定，文件放进去就转" class="headerlink" title="5.1 目录固定，文件放进去就转"></a>5.1 目录固定，文件放进去就转</h3><p>工具目录在 <code>tools/blog2md</code>，三个目录<strong>固定不可改</strong>（不存在会自动创建）：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tools/blog2md/txt</code></td>
+<td>放 <code>.txt</code> 文件</td>
+</tr>
+<tr>
+<td><code>tools/blog2md/doc</code></td>
+<td>放 <code>.doc</code> &#x2F; <code>.docx</code> 文件</td>
+</tr>
+<tr>
+<td><code>tools/blog2md/source/_post</code></td>
+<td>生成的文章，<strong>每次启动自动清空</strong></td>
+</tr>
+</tbody></table>
+<p>流程：把文件丢进 <code>txt/</code> 或 <code>doc/</code> → 运行 → 选文件 → 填标签 &#x2F; 分类 &#x2F; 日期 → 预览 → 写入 <code>source/_post</code> → 提示「是否保存到 Hexo 的 <code>_posts</code> 目录（Y&#x2F;N）」，输入 <code>Y</code> 才复制进站点。</p>
+<h3 id="5-2-最省事的方式：双击运行"><a href="#5-2-最省事的方式：双击运行" class="headerlink" title="5.2 最省事的方式：双击运行"></a>5.2 最省事的方式：双击运行</h3><p>Windows 双击 <code>tools\blog2md\blog2md.bat</code>（Linux &#x2F; macOS 执行 <code>./blog2md.sh</code>），工具会**优先使用 <code>dist\</code> 里打包好的 exe（免环境）**，否则用 Node.js 源码运行。接着分组列出 <code>txt/</code> 与 <code>doc/</code> 里的文件，按序号选（<code>all</code> 全选、<code>r</code> 重扫、<code>q</code> 退出）、填标题与标签（填完先给摘要确认，不满意可重填）、看预览、确认写入，最后问是否复制进站点，<strong>全程不用敲命令</strong>。</p>
+<p>想用命令行时：</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">cd tools/blog2md
 
-<span class="token comment"># 免环境：直接用打包好的 exe（只打包 Python 版）</span>
-dist\doc2md-python<span class="token punctuation">.</span>exe D:\docs\笔记<span class="token punctuation">.</span>docx
+<span class="token comment"># 免环境：直接用打包好的 exe（在工具根目录）</span>
+blog2md<span class="token punctuation">.</span>exe
 
-<span class="token comment"># 装依赖，二选一即可</span>
-cd nodejs &amp;&amp; npm install                                <span class="token comment"># Node.js 18+</span>
-cd python &amp;&amp; python <span class="token operator">-</span>m pip install <span class="token operator">-</span>r requirements<span class="token punctuation">.</span>txt  <span class="token comment"># Python 3.8+</span>
+<span class="token comment"># 装依赖</span>
+npm install                   <span class="token comment"># Node.js 20+</span>
 
-<span class="token comment"># Node.js 版</span>
-node nodejs/index<span class="token punctuation">.</span>js D:\docs\笔记<span class="token punctuation">.</span>docx
+node blog2md<span class="token punctuation">.</span>js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment"># Python 版</span>
-python python/doc2md<span class="token punctuation">.</span>py D:\docs\笔记<span class="token punctuation">.</span>docx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<p>打包 exe（改了源码后重新执行）：双击 <code>tools\blog2md\build.bat</code>（Linux &#x2F; macOS 执行 <code>./build.sh</code>），产物就在工具根目录 <code>blog2md.exe</code>。</p>
 <p>标题、标签、分类、日期<strong>不在命令行填</strong>：识别到文件后命令行会逐项提示，直接回车用默认值。</p>
-<p>Node 版依赖是纯 JS 包（<code>mammoth</code>、<code>turndown</code>、<code>adm-zip</code>、<code>iconv-lite</code>、<code>js-yaml</code>），Python 版依赖 <code>python-docx</code> 与 <code>PyYAML</code>，都不需要编译，也不依赖本机装解压软件。<code>.doc</code> 转换需要 LibreOffice 或 Word——只有要转 <code>.doc</code> 时才用到。</p>
-<h3 id="5-2-用法"><a href="#5-2-用法" class="headerlink" title="5.2 用法"></a>5.2 用法</h3><p>在站点根目录用 npm 脚本调用（参数用 <code>--</code> 透传）：</p>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 转换单个文件</span>
-npm run convert <span class="token operator">--</span> D:\docs\笔记<span class="token punctuation">.</span>docx
+<p>依赖是纯 JS 包（<code>mammoth</code>、<code>turndown</code>、<code>iconv-lite</code>、<code>js-yaml</code>），不需要编译。<code>.doc</code> 转换需要 LibreOffice 或 Word——只有要转 <code>.doc</code> 时才用到。</p>
+<h3 id="5-3-用法"><a href="#5-3-用法" class="headerlink" title="5.3 用法"></a>5.3 用法</h3><p>在站点根目录用 npm 脚本调用（参数用 <code>--</code> 透传）：</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 转换 txt/ 与 doc/ 下的全部文件（默认）</span>
+npm run convert
 
-<span class="token comment"># 整个目录递归转换</span>
-npm run convert <span class="token operator">--</span> D:\docs
-
-<span class="token comment"># zip 压缩包：自动解压后批量转换</span>
-npm run convert <span class="token operator">--</span> D:\docs\备份<span class="token punctuation">.</span>zip
-
-<span class="token comment"># 先预览不落地，确认标题和正文没问题再正式写入</span>
-npm run convert <span class="token operator">--</span> D:\docs\备份<span class="token punctuation">.</span>zip <span class="token operator">--</span>dry-run
+<span class="token comment"># 只预览 doc/ 下的文件</span>
+npm run convert <span class="token operator">--</span> doc <span class="token operator">--</span>dry-run
 
 <span class="token comment"># 覆盖同名文章</span>
-npm run convert <span class="token operator">--</span> 笔记<span class="token punctuation">.</span>docx <span class="token operator">--</span>force<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+npm run convert <span class="token operator">--</span> <span class="token operator">--</span>force<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>常用参数：</p>
 <table>
@@ -444,10 +456,6 @@ npm run convert <span class="token operator">--</span> 笔记<span class="token 
 </tr>
 </thead>
 <tbody><tr>
-<td><code>-o, --outdir &lt;目录&gt;</code></td>
-<td>输出目录，默认 <code>source/_posts</code></td>
-</tr>
-<tr>
 <td><code>--force</code></td>
 <td>覆盖已存在的同名文章</td>
 </tr>
@@ -456,9 +464,8 @@ npm run convert <span class="token operator">--</span> 笔记<span class="token 
 <td>只预览不写文件</td>
 </tr>
 </tbody></table>
+<p>输入目录（<code>txt/</code> &#x2F; <code>doc/</code>）与输出目录（<code>source/_post</code>）固定，不能用 <code>-o</code> 等参数修改。</p>
 <p>标题、标签、分类、日期在识别到文件后逐项提示填写：回车用默认值（标题取文档标题或首行，日期取文件修改时间，标签分类留空）。多文件只问一次，各篇仍取自己的标题。这些信息不再支持命令行参数。</p>
-<h3 id="5-3-压缩包只支持-zip"><a href="#5-3-压缩包只支持-zip" class="headerlink" title="5.3 压缩包只支持 zip"></a>5.3 压缩包只支持 zip</h3><p>工具（两版一致）只认 <code>.zip</code>：Node 版用 <code>adm-zip</code>、Python 版用标准库 <code>zipfile</code>，装完依赖即可用。<code>.rar</code> &#x2F; <code>.7z</code> 是专有或 codec 复杂的格式，没有成熟的纯 JS &#x2F; 纯 Python 实现，要么引入几 MB 的 WebAssembly，要么调用本机解压软件——为了保持「装完就能用、不依赖本机软件」，这里不做。遇到 rar &#x2F; 7z 先解压成目录，或重新打包成 zip 再导入。</p>
-<p>已知限制：加密 zip、分卷 zip 不支持；zip 里的嵌套 zip 会自动展开（最多 2 层）；中文文件名会自动识别编码，不会乱码。</p>
 <h3 id="5-4-转换规则与后续步骤"><a href="#5-4-转换规则与后续步骤" class="headerlink" title="5.4 转换规则与后续步骤"></a>5.4 转换规则与后续步骤</h3><ul>
 <li>标题：docx 取首个一级标题，txt 取首行，再退化为文件名；</li>
 <li>日期：默认文件修改时间，运行后可按提示改；</li>
@@ -517,9 +524,9 @@ npm run deploy<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <li>环境：Node 20.19+ → <code>npm install</code> → 确认 <code>themes/next</code> 存在；</li>
 <li>写作：<code>hexo new</code> → 填 front-matter → 图片放同名资源目录 → <code>&lt;!-- more --&gt;</code> 切摘要；</li>
 <li>发布：<code>npm run server</code> 预览 → <code>npm run build</code> → <code>npm run deploy</code>；</li>
-<li>存量文档：<code>npm run convert</code>，zip 直接导入，rar &#x2F; 7z 先解压。</li>
+<li>存量文档：放进 <code>tools/blog2md/txt</code> 或 <code>doc</code> 后 <code>npm run convert</code>。</li>
 </ul>
-<p>更详细的命令、主题配置与导入说明，见仓库里的 <code>USAGE.md</code>、<code>SETUP.md</code>、<code>BUILD.md</code> 与 <code>tools/doc2md/README.md</code>。</p>
+<p>更详细的命令、主题配置与导入说明，见仓库里的 <code>USAGE.md</code>、<code>SETUP.md</code>、<code>BUILD.md</code> 与 <code>tools/blog2md/README.md</code>。</p>
 ]]></content>
       <categories>
         <category>教程</category>
@@ -529,6 +536,56 @@ npm run deploy<span aria-hidden="true" class="line-numbers-rows"><span></span><s
         <tag>NexT</tag>
         <tag>GitHub Pages</tag>
         <tag>博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>示例 Word 文档：读书笔记模板</title>
+    <url>/2026/10/17/%E7%A4%BA%E4%BE%8B%20Word%20%E6%96%87%E6%A1%A3%EF%BC%9A%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<p>这是一份用于验证转换效果的示例文档，包含标题、<strong>加粗文字</strong>、<em>斜体文字</em>、有序列表、表格与内嵌图片。</p>
+<h2 id="核心观点"><a href="#核心观点" class="headerlink" title="核心观点"></a>核心观点</h2><p>习惯的养成不靠意志力，靠降低执行成本</p>
+<p>环境设计比目标设定更影响结果</p>
+<p>记录与复盘让改进可累积</p>
+<h2 id="章节要点"><a href="#章节要点" class="headerlink" title="章节要点"></a>章节要点</h2><table>
+<thead>
+<tr>
+<th>章节</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一章</td>
+<td>把目标换成流程</td>
+</tr>
+<tr>
+<td>第二章</td>
+<td>让好习惯更容易发生</td>
+</tr>
+</tbody></table>
+<h2 id="示例插图"><a href="#示例插图" class="headerlink" title="示例插图"></a>示例插图</h2><img src="2026/10/17/%E7%A4%BA%E4%BE%8B%20Word%20%E6%96%87%E6%A1%A3%EF%BC%9A%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF/image-1.png" class="">
+
+<p>上图为内嵌的示例图片，转换后会导出到文章资源目录，正文用 asset_img 引用。</p>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>示例纯文本笔记：周末整理书房</title>
+    <url>/2026/10/17/%E7%A4%BA%E4%BE%8B%E7%BA%AF%E6%96%87%E6%9C%AC%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%91%A8%E6%9C%AB%E6%95%B4%E7%90%86%E4%B9%A6%E6%88%BF/</url>
+    <content><![CDATA[<p>今天把书房整理了一遍，顺手记下几点心得，方便下次照着做。</p>
+<p>一、先分类再收纳<br>书籍按使用频率分成三类：常用、偶尔翻阅、存档。常用的放在伸手可及的一层，存档类直接装箱收进柜顶。</p>
+<p>二、留白比塞满更重要<br>书架至少留出三分之一的空位，之后新买的书才没地方放。塞满的书架看着整齐，用起来却很别扭。</p>
+<p>三、定期复盘<br>每个季度检查一次，把确定不会再翻的书捐给社区书屋或转卖。物品流动起来，空间才不会越堆越死。</p>
+<p>整理完最大的感受是：空间的秩序会反过来影响做事的节奏。桌面清爽之后，坐下来写代码也更容易进入状态。</p>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
 </search>
