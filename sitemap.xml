@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://luoguang.github.io/404</loc>
+    
+    <lastmod>2026-10-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://luoguang.github.io/2026/10/16/hexo-blog-guide/</loc>
     
     <lastmod>2026-10-16</lastmod>
@@ -21,15 +30,6 @@
   
   <url>
     <loc>https://luoguang.github.io/tags/index.html</loc>
-    
-    <lastmod>2026-10-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://luoguang.github.io/404</loc>
     
     <lastmod>2026-10-15</lastmod>
     
