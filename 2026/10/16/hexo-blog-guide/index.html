@@ -401,9 +401,9 @@ npx hexo s          <span class="token comment"># 打开 http://localhost:4000</
     └── cover.png<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在文章里这样引用：</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% asset_img cover.png 图片说明 %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>cover.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>图片说明<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>用资源目录的好处是图片跟着文章走，删文章时一起删，不会出现孤立文件。</p>
+<p>用资源目录的好处是图片跟着文章走，删文章时一起删，不会出现孤立文件。注意本站开启了 <code>relative_link: true</code>，此时 Hexo 的 <code>&#123;% asset_img %&#125;</code> 会生成带文章路径前缀的地址，在文章页里再拼一次就 404，所以改用相对 <code>&lt;img&gt;</code>。</p>
 <h3 id="3-4-排版规范"><a href="#3-4-排版规范" class="headerlink" title="3.4 排版规范"></a>3.4 排版规范</h3><p>标题层级、列表、引用、代码块、表格、emoji 的写法，另有 <a href="2026/10/14/markdown-writing-guide/" title="Markdown 写作与排版规范">这篇文章</a> 专门记录，写新文章时照着套即可，所有文章的版式就能保持一致。</p>
 <h2 id="四、生成与发布"><a href="#四、生成与发布" class="headerlink" title="四、生成与发布"></a>四、生成与发布</h2><h3 id="4-1-本地预览"><a href="#4-1-本地预览" class="headerlink" title="4.1 本地预览"></a>4.1 本地预览</h3><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">npm run server      <span class="token comment"># 等价于 hexo server</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -515,7 +515,7 @@ npm run convert <span class="token operator">--</span> <span class="token operat
 <h3 id="5-4-转换规则与后续步骤"><a href="#5-4-转换规则与后续步骤" class="headerlink" title="5.4 转换规则与后续步骤"></a>5.4 转换规则与后续步骤</h3><ul>
 <li>标题：docx 取首个一级标题，txt 取首行，再退化为文件名；</li>
 <li>日期：默认文件修改时间，运行后可按提示改；</li>
-<li>图片：docx 内嵌图片导出到文章资源目录，正文用 <code>&#123;% asset_img %&#125;</code> 引用；</li>
+<li>图片：docx 内嵌图片导出到文章资源目录，正文用相对 <code>&lt;img&gt;</code> 引用；</li>
 <li>编码：txt 自动识别 UTF-8 &#x2F; UTF-16 &#x2F; GBK，输出统一 UTF-8。</li>
 </ul>
 <p>转换完照样走第四节：</p>
