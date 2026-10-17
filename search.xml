@@ -561,9 +561,9 @@ fs<span class="token punctuation">.</span><span class="token function">writeFile
 <td>让好习惯更容易发生</td>
 </tr>
 </tbody></table>
-<h2 id="示例插图"><a href="#示例插图" class="headerlink" title="示例插图"></a>示例插图</h2><img src="2026/10/17/%E7%A4%BA%E4%BE%8B%20Word%20%E6%96%87%E6%A1%A3%EF%BC%9A%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF/image-1.png" class="">
+<h2 id="示例插图"><a href="#示例插图" class="headerlink" title="示例插图"></a>示例插图</h2><img src="image-1.png" alt="示例插图">
 
-<p>上图为内嵌的示例图片，转换后会导出到文章资源目录，正文用 asset_img 引用。</p>
+<p>上图为内嵌的示例图片，转换后会导出到文章资源目录，正文用相对路径的 <code>&lt;img&gt;</code> 引用。</p>
 ]]></content>
       <categories>
         <category>未分类</category>
